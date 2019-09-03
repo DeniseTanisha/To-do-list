@@ -1,26 +1,55 @@
 import React, { Component } from "react";
-import ToDoItem from "./ToDoItem"
+import PropTypes from "prop-types";
+import ToDoItem from "../ToDoItem";
 
-class TodDoList extends Component {
-state = {
-  term: "",
-  ToDoItem:  
+class ToDoList extends Component {
+  state = {
+    term: "",
+    items: []
+  };
+  onChange = event => {
+    this.setState({ term: event.target.value });
+  };
+  onSubmit = event => {
+    event.preventDefault();
+    this.setState({
+      term: "",
+      items: [...this.state.items, this.state.term]
+    });
+  };
 
-};
-  AddItem = event => {
-      onChange 
-  }
+  deleteItem = key => {
+    const filteredItems = this.state.items.filter((item, j) => {
+      return key !== j;
+    });
+    this.setState({
+      items: filteredItems
+    });
+  };
 
-  
   render() {
     return (
       <div>
-        <h3>My First List</h3>
-        <input type="text" placeholder="First thing to do" />
-        <button onClick={this.AddItem}> SAVE</button>
+        <form className="App" onSubmit={this.onSubmit}>
+          <input
+            value={this.state.term}
+            onChange={this.onChange}
+            placeholder="First Thing To Do... "
+          />
+          <button>ADD TO LIST</button>
+        </form>
+        <ul>
+          {this.state.items.map((item, index) => (
+            <ToDoItem
+              item={item}
+              key={index}
+              deleteItem={() => this.deleteItem(index)}
+            />
+          ))}
+        </ul>
       </div>
     );
   }
 }
 
-export default TodDoList;
+export default ToDoList;

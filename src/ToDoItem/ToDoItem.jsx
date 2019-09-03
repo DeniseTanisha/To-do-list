@@ -1,17 +1,26 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styles from "./ToDoItem.module.scss";
 
 class ToDoItem extends Component {
-  state = {};
+  state = {
+    checked: false,
+    filteredItems: []
+  };
+  handleClick = () => {
+    this.setState({
+      checked: !this.state.checked
+    });
+  };
+
   render() {
+    const done = this.state.checked ? styles.itemDone : "";
     return (
       <li>
         <input type="checkbox" onClick={this.handleClick} />
-        <span key={index} className={`${styles.ListItem} ${styles.Done}`} />
-        <span
-          className={styles.deleteX}
-          onClick={() => this.props.deleteItem(index.key)}
-        >
-          X
+        <span className={`${styles.item}  ${done}`}>{this.props.item}</span>
+        <span className={styles.deleteX} onClick={this.props.deleteItem}>
+          [DELETE]
         </span>
       </li>
     );

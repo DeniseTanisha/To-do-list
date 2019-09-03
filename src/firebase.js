@@ -19,6 +19,11 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+export const provider = new firebase.auth.GoogleAuthProvider();
+provider.setCustomParameters({
+  login_hint: "user@example.com"
+});
+
 export const firestore = firebase.firestore();
 
 export default firebase;
