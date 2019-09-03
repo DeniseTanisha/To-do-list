@@ -1,0 +1,12 @@
+li {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  .deleteX {
+    margin: 0 5px;
+  }
+}
+
+.itemDone {
+  text-decoration: line-through;
+}
